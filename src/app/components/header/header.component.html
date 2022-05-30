@@ -1,0 +1,39 @@
+<header id="header" class="d-flex flex-column justify-content-center">
+
+    <nav class="navbar navbar-expand-lg mx-3 px-7 navbar-light  sticky-sm-top " >
+        <div class="container-fluid">
+          <a class="navbar-brand fs-1" routerLink='/inicio' routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" >Inicio</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse " id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link "  routerLink='/beach-voley'
+                routerLinkActive='active'>Beach Voley</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " routerLink='/liga-interna' routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}">Liga Interna</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " routerLink='/equipos' routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" >Equipos</a>
+              </li>
+             <!-- <li class="nav-item">
+                <a class="nav-link " routerLink='/login' routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" >
+                  <mat-icon>login</mat-icon>
+                </a>
+              </li>-->
+
+              <li class="nav-item" *ngIf="!isLogged">
+                <a class="nav-link"  routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+              </li>
+              <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()">
+                <a class="nav-link" style="cursor: pointer;"><i class="fas fa-door-open" ></i> Cerrar Sesión</a>
+              </li>
+  
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+  </header> <!--End Header -->

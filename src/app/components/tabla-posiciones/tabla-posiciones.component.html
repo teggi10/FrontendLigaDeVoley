@@ -1,0 +1,101 @@
+<h2 class="fs-2">Tabla de posiciones</h2>
+<div class="container">
+ 
+  <div class="row">
+<div class="col">
+  <table class="table table-bordered border-dark caption-top">
+    <caption class="text-dark fs-4">Masculino A</caption>
+      <thead>
+        <tr>
+          <th scope="col">Posicion</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Localidad</th>
+          <th scope="col">Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipo of equiposMasculino">
+          <td>{{equiposMasculino.indexOf(equipo) + 1}}</td>
+          <td>{{equipo.nombre}}</td>
+          <td>{{equipo.localidad}}</td>
+          <td>{{equipo.puntos}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<div class="col">
+  <table class="table table-bordered border-dark caption-top">
+    <caption class="text-dark fs-4">Masculino B</caption>
+      <thead>
+        <tr>
+          <th scope="col">Posicion</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Localidad</th>
+          <th scope="col">Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipo of equiposMasculino">
+          <td>{{equiposMasculino.indexOf(equipo) + 1}}</td>
+          <td>{{equipo.nombre}}</td>
+          <td>{{equipo.localidad}}</td>
+          <td>{{equipo.puntos}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+<div class="col">
+  <table class="table table-bordered border-dark caption-top">
+    <caption class="text-dark fs-4">Femenino A</caption>
+      <thead>
+        <tr>
+          <th scope="col">Posicion</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Localidad</th>
+          <th scope="col">Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipo of equiposFemenino">
+          <td>{{equiposFemenino.indexOf(equipo) + 1}}</td>
+          <td>{{equipo.nombre}}</td>
+          <td>{{equipo.localidad}}</td>
+          <td>{{equipo.puntos}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<div class="col">
+  <table class="table table-bordered border-dark caption-top">
+    <caption class="text-dark fs-4">Femenino B</caption>
+      <thead>
+        <tr>
+          <th scope="col">Posicion</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Localidad</th>
+          <th scope="col">Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipo of equiposFemenino">
+          <td>{{equiposFemenino.indexOf(equipo) + 1}}</td>
+          <td>{{equipo.nombre}}</td>
+          <td>{{equipo.localidad}}</td>
+          <td>{{equipo.puntos}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  </div>
+
+</div>
+
+  

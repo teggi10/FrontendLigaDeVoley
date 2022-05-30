@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <span class="titulo">{{titulo | uppercase}}</span>
+                    <h5>Cantidad total de equipos: {{equiposTotal.length}}</h5>
+                  <!-- <button class="btn btn-primary m-3" (click)="obtenerEquiposMasculinos()">Obtener equipos masculinos</button>
+                    <button class="btn btn-primary m-3" (click)="obtenerEquiposFemeninos()">Obtener equipos femeninos</button>-->
+                    <table *ngIf="equiposTotal.length > 0  " class="table table-striped mt-3">
+                        <thead>
+                          <tr>
+                            <th scope="col"> Nombre</th>
+                            <th scope="col">Localidad</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let equipo of equiposTotal">
+                            <td>{{equipo.nombre}}</td>
+                            <td>{{equipo.localidad}}</td>
+                            <td>{{equipo.sexo}}</td>
+                            <td > <button class="btn btn-primary"  routerLink="/jugadores/{{equipo.idEquipo}}">Ver jugadores</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <h5 *ngIf="equiposTotal.length == 0 ">No hay equipos en la liga</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+

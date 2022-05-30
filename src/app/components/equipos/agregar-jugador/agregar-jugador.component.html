@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-5">
+      <div class="card">
+        <div class="card-body text-center">
+          <span class="titulo">AGREGAR JUGADOR</span>
+          <form class="mt-3"  [formGroup]="jugadorForm" (ngSubmit)="agregarJugador()">
+            <div class="mt-5">
+                <input type="text"  formControlName="nombre" class="form-control form-control-lg" placeholder="Nombre">
+                 <div class="text-danger" *ngIf="jugadorForm.get('nombre')?.hasError('required') && jugadorForm.get('nombre')?.touched">
+                     <span>El nombre del jugador <strong>es obligatorio</strong></span>
+                 </div>         
+            </div>
+            <div class="mt-5">
+                <input type="text" formControlName="apellido" class="form-control form-control-lg" placeholder="Apellido">
+                <div class="text-danger" *ngIf="jugadorForm.get('apellido')?.hasError('required') && jugadorForm.get('apellido')?.touched">
+                    <span>El apellido del jugador <strong>es obligatorio</strong></span>
+                </div> 
+            </div>
+            <div class="mt-5">
+                <input type="number" formControlName="numero" class="form-control form-control-lg" placeholder="Numero">
+                <div class="text-danger" *ngIf="jugadorForm.get('numero')?.hasError('required') && jugadorForm.get('numero')?.touched">
+                    <span>El numero del jugador <strong>es obligatorio</strong></span>
+                </div> 
+            </div>
+            <div class="mt-5">
+                <input type="text" formControlName="posicion" class="form-control form-control-lg" placeholder="Posicion">
+                <div class="text-danger" *ngIf="jugadorForm.get('posicion')?.hasError('required') && jugadorForm.get('posicion')?.touched">
+                    <span>La posicion del jugador <strong>es obligatoria</strong></span>
+                </div> 
+            </div>
+            <div class="mt-5">
+              <input type="text" formControlName="dni" class="form-control form-control-lg" placeholder="DNI">
+              <div class="text-danger" *ngIf="jugadorForm.get('dni')?.hasError('required') && jugadorForm.get('dni')?.touched">
+                  <span>El dni del jugador <strong>es obligatoria</strong></span>
+              </div> 
+          </div>
+          <div class="mt-5">
+            <input type="text" formControlName="fechaNac" class="form-control form-control-lg" placeholder="Fecha de nacimiento">
+            <div class="text-danger" *ngIf="jugadorForm.get('fechaNac')?.hasError('required') && jugadorForm.get('fechaNac')?.touched">
+                <span>La fecha de nacimiento del jugador <strong>es obligatoria</strong></span>
+            </div> 
+        </div>
+            <div class="mt-5">
+                <button class="btn btn-secondary btn-lg float-start" routerLink="/jugadores/{{this.id}}">Volver</button>
+                <button class="btn btn-success btn-lg float-end" [disabled]="jugadorForm.invalid" >Aceptar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
