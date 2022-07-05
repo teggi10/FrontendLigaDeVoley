@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.isLogged = false;
     }
+    console.log(this.isLogged);
   }
 
   onLogOut(): void {
@@ -26,11 +27,11 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
 
-  obtenerEquipos(){
+ /* obtenerEquipos(){
     this.equipoService.getEquipos().subscribe(data => {
       console.log(data)
     },error => {
       console.log(error);
     })
-  }
+  }*/
 }

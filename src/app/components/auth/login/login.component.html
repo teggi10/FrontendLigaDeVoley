@@ -1,11 +1,13 @@
-
+<br>
+<br>
+<br>
 <div class="text-center" *ngIf="isLogged; else loggedOut">
     <h2>Ya has iniciado sesión</h2>
 </div>
 
 <ng-template #loggedOut>
-    <div class="container d-flex justify-content-center">
-        <div class="card">
+    <div class="container justify-content-center">
+        <div class="card ">
             <div class="card-header">
                 <ul class="nav nav-tabs">
                     <li class="nav-item ">
@@ -13,10 +15,10 @@
                     </li>                
                   </ul>
             </div>
-            <div class="card-body">
+            <div class="card-body text-dark">
                 <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
                     <div class="form-group">
-                        <label for="nombreUsuario">Nombre de Usuario</label>
+                        <label for="nombreUsuario" >Nombre de Usuario</label>
                         <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control"
                         [(ngModel)]="nombreUsuario" required>
                     </div>
@@ -34,3 +36,6 @@
         </div>
     </div>
 </ng-template>
+
+<br>
+<br>

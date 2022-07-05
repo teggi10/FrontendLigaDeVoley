@@ -8,7 +8,7 @@ import { Equipo } from "../models/equipo";
 })
 export class EquipoService {
 
-   URL = 'http://localhost:8080/equipo/'
+   URL = 'https://liga-de-voley.herokuapp.com/equipo/'
     constructor(private http:HttpClient){
     }
 

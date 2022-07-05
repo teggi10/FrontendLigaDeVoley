@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.tokenService.getToken()) {
+   /* if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
-    }
+    }*/
   }
 
   onLogin(): void {

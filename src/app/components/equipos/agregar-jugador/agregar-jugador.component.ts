@@ -27,7 +27,8 @@ export class AgregarJugadorComponent implements OnInit {
     sexo: '',
     puntos: 0,
     jugadores : [],
-    nombreClave: ''
+    nombreClave: '',
+    categoria:''
   };
 
 
@@ -36,8 +37,8 @@ export class AgregarJugadorComponent implements OnInit {
       idJugador: [''],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      numero: ['', Validators.required],
-      posicion: ['', Validators.required],
+      numero: [''],
+      posicion: [''],
       equipo: [{}],
       dni: ['', Validators.required],
       fechaNac: ['', Validators.required]
@@ -61,10 +62,9 @@ export class AgregarJugadorComponent implements OnInit {
       this.equipo.sexo = data.sexo;
       this.equipo.puntos = data.puntos;
       this.equipo.jugadores = data.jugadores;
+      this.equipo.categoria = data.categoria;
       this.equipo.idEquipo = data.idEquipo;
-      console.log(this.equipo);
     })
-    console.log(this.equipo);
   }
  
   agregarJugador(this: any){
@@ -78,8 +78,6 @@ export class AgregarJugadorComponent implements OnInit {
       dni: this.jugadorForm.get('dni')?.value,
       fechaNac: this.jugadorForm.get('fechaNac')?.value
     }
-   
-    console.log(JUGADOR);
     
     this.jugadorService.guardarJugador(JUGADOR).subscribe(() => {
       this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
@@ -90,7 +88,7 @@ export class AgregarJugadorComponent implements OnInit {
       
     });
 
-    this.equipo.jugadores.push(JUGADOR);
+   /* this.equipo.jugadores.push(JUGADOR);
     console.log(this.equipo);
 
     this.equipoService.actualizarEquipo(this.id, this.equipo).subscribe(() => {
@@ -101,7 +99,7 @@ export class AgregarJugadorComponent implements OnInit {
       this.jugadorForm.reset();
       
     }
-    )
+    )*/
   }
 }
    

@@ -30,8 +30,7 @@ this.obtenerEquipos()
   }
 
   obtenerEquipos(){
-    this.equipoService.getEquipos().subscribe(data => {
-      console.log(data);
+    this.equipoService.getEquipos().subscribe(data => { 
       this.equiposTotal= data;
     },error => {
       console.log(error);
@@ -41,7 +40,7 @@ this.obtenerEquipos()
   obtenerEquiposMasculinos(){
     this.equipoService.getEquipos().subscribe(data => {
      data.forEach((equipo: Equipo) => {
-      if (equipo.sexo == "Masculino"){
+      if (equipo.sexo == "M"){
         console.log(equipo);
         this.equiposMasculino.push(equipo) ;
       }
@@ -56,7 +55,7 @@ this.obtenerEquipos()
   obtenerEquiposFemeninos(){
     this.equipoService.getEquipos().subscribe(data => {
       data.forEach((equipo: Equipo) => {
-        if (equipo.sexo == "Femenino")
+        if (equipo.sexo == "F")
         console.log(equipo);
         this.equiposFemenino.push(equipo) ;
        }); 

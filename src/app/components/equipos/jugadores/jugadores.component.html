@@ -1,18 +1,24 @@
-<div class="container mt-5">
+<br>
+<br>
+<div class="container ">
     <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="card">
-                <div class="card-body text-center">
-                    <span class="titulo">LISTADO DE JUGADORES</span>
-                    <button class="btn btn-secondary float-start" routerLink="/equipos">Volver</button>
-                    <button class="btn btn-success float-end" routerLink="/agregar-jugador/{{idEquipo}}">Agregar jugador</button>
-                    <table *ngIf="jugadores.length > 0" class="table table-striped mt-3">
+            <h1 class="text-center">LISTADO DE JUGADORES </h1>
+            <h2 class="text-center">{{equipo.nombre}} </h2>
+            <h3 class="text-center">{{equipo.localidad}}</h3>
+                    <div>
+                      <button class="btn btn-secondary " routerLink="/equipos">Volver</button>
+                      <button class="btn btn-success float-end" routerLink="/agregar-jugador/{{idEquipo}}" *ngIf="isAdminEquipo && fechaValida">Agregar jugador</button>
+                    </div>
+                    <div class="container float-start">
+                      <table *ngIf="jugadores.length > 0" class="table table-light table-striped mt-3 ">
                         <thead>
                           <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Numero</th>
                             <th scope="col">Posicion</th>
+                            <th scope="col" *ngIf="isAdminEquipo || isAdmin">Fecha de Nac.</th>
+                            <th scope="col" *ngIf="isAdminEquipo || isAdmin">DNI</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
@@ -22,16 +28,18 @@
                             <td>{{jugador.apellido}}</td>
                             <td>{{jugador.numero}}</td>
                             <td>{{jugador.posicion}}</td>
-                            <td>
-                             <i class="far fa-edit text-primary ml-5" routerLink="/editar-jugador/{{jugador.idJugador}}"></i>
-                            <i  class="fas fa-trash text-danger ml-5" (click)="eliminarJugador(jugador.idJugador)"></i>
+                            <td *ngIf="isAdminEquipo || isAdmin">{{jugador.fechaNac}}</td>
+                            <td *ngIf="isAdminEquipo || isAdmin">{{jugador.dni}}</td>
+                            <td class="d-flex" *ngIf="isAdminEquipo && fechaValida">
+                            <button routerLink="/editar-jugador/{{jugador.idJugador}}"  class="btn "><i class="far fa-edit text-primary "></i></button>
+                            <button (click)="eliminarJugador(jugador.idJugador)"  class="btn "><i  class="fas fa-trash text-danger " ></i></button>
                              </td>
                           </tr>
                         </tbody>
                       </table>
                       <h5 *ngIf="jugadores.length == 0">No hay jugadores en este equipo</h5>
+                    </div>
+                   
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
