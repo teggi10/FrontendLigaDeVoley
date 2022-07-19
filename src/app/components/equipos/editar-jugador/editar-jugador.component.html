@@ -32,7 +32,7 @@
                   </div> 
               </div>
               <div class="mt-5">
-                <input type="number" formControlName="dni" class="form-control form-control-lg" placeholder="DNI">
+                <input type="number" formControlName="dni" class="form-control form-control-lg" placeholder="DNI" min="11111111" max="99999999">
                 <div class="text-danger" *ngIf="jugadorForm.get('dni')?.hasError('required') && jugadorForm.get('dni')?.touched">
                     <span>El dni del jugador <strong>es obligatoria</strong></span>
                 </div> 
@@ -44,8 +44,8 @@
               </div> 
           </div>
               <div class="mt-5">
-                  <button class="btn btn-secondary btn-lg float-start" routerLink="/equipos">Volver</button>
-                  <button class="btn btn-success btn-lg float-end" [disabled]="jugadorForm.invalid">Aceptar</button>
+                  <button class="btn btn-secondary btn-lg float-start" routerLink="/jugadores/{{this.idEquipo}}">Volver</button>
+                  <button class="btn btn-success btn-lg float-end" [disabled]="jugadorForm.invalid" >Aceptar</button>
               </div>
             </form>
           </div>

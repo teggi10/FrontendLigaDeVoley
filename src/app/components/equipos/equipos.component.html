@@ -5,9 +5,9 @@
     <div class="row ">
         <div class="col-lg-8 offset-lg-2">
             <div class="card text-dark">
-                <div class="card-body text-center">
+                <div class="card-body text-center table-responsive">
                     <span class="titulo">{{titulo | uppercase}}</span>
-                    <h5>Cantidad total de equipos: {{equiposTotal.length + 1}}</h5>
+                    <h5 *ngIf="equiposTotal.length > 0 ">Cantidad total de equipos: {{equiposTotal.length}}</h5>
                    <!--<button class="btn btn-primary m-3" (click)="obtenerEquiposMasculinos()">Obtener equipos masculinos</button>
                    <button class="btn btn-primary m-3" (click)="obtenerEquiposFemeninos()">Obtener equipos femeninos</button>-->
                     <table *ngIf="equiposTotal.length > 0  " class="table  table-striped mt-3">
@@ -24,11 +24,11 @@
                             <td>{{equipo.nombre}}</td>
                             <td>{{equipo.localidad}}</td>
                             <td>{{equipo.sexo}}</td>
-                            <td > <button class="btn btn-primary"  routerLink="/jugadores/{{equipo.idEquipo}}">Ver jugadores</button></td>
+                            <td > <button class="btn btn-primary btn-sm"  routerLink="/jugadores/{{equipo.idEquipo}}">Ver jugadores</button></td>
                           </tr>
                         </tbody>
                       </table>
-                      <h5 *ngIf="equiposTotal.length == 0 ">No hay equipos en la liga</h5>
+                      <h5 *ngIf="equiposTotal.length == 0 ">Cargando ...</h5>
                 </div>
             </div>
         </div>

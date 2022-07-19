@@ -1,15 +1,17 @@
 <br>
 <br>
 <div class="container ">
-    <div class="row">
+  <h4 *ngIf="isAdminEquipo">Modificaciones habilitadas hasta: {{this.fechaModificacionValida}} </h4>
+    <div class="row" *ngIf="this.equipo && this.jugadores">
             <h1 class="text-center">LISTADO DE JUGADORES </h1>
-            <h2 class="text-center">{{equipo.nombre}} </h2>
-            <h3 class="text-center">{{equipo.localidad}}</h3>
+            <h2 class="text-center" >{{this.equipo.nombre}} </h2>
+            <h3 class="text-center">{{this.equipo.localidad}}</h3>
                     <div>
                       <button class="btn btn-secondary " routerLink="/equipos">Volver</button>
                       <button class="btn btn-success float-end" routerLink="/agregar-jugador/{{idEquipo}}" *ngIf="isAdminEquipo && fechaValida">Agregar jugador</button>
+                      <h3 class="text-danger text-center" *ngIf="isAdminEquipo && !fechaValida">Ya cerraron las listas, no se permiten modificaciones</h3>
                     </div>
-                    <div class="container float-start">
+                    <div class="table-responsive-sm">
                       <table *ngIf="jugadores.length > 0" class="table table-light table-striped mt-3 ">
                         <thead>
                           <tr>
@@ -30,14 +32,14 @@
                             <td>{{jugador.posicion}}</td>
                             <td *ngIf="isAdminEquipo || isAdmin">{{jugador.fechaNac}}</td>
                             <td *ngIf="isAdminEquipo || isAdmin">{{jugador.dni}}</td>
-                            <td class="d-flex" *ngIf="isAdminEquipo && fechaValida">
-                            <button routerLink="/editar-jugador/{{jugador.idJugador}}"  class="btn "><i class="far fa-edit text-primary "></i></button>
-                            <button (click)="eliminarJugador(jugador.idJugador)"  class="btn "><i  class="fas fa-trash text-danger " ></i></button>
+                            <td class="d-flex" *ngIf="isAdminEquipo  && fechaValida">
+                            <button routerLink="/editar-jugador/{{jugador.idJugador}}/{{this.idEquipo}}"  class="btn btn-sm"><i class="far fa-edit text-primary "></i></button>
+                            <button (click)="eliminarJugador(jugador.idJugador)"  class="btn btn-sm"><i  class="fas fa-trash text-danger " ></i></button>
                              </td>
                           </tr>
                         </tbody>
                       </table>
-                      <h5 *ngIf="jugadores.length == 0">No hay jugadores en este equipo</h5>
+                      <h5 *ngIf="jugadores.length == 0" class="text-center mt-3">No hay jugadores en este equipo</h5>
                     </div>
                    
                 </div>

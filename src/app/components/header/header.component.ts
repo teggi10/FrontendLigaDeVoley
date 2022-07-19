@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
     } else {
       this.isLogged = false;
     }
-    console.log(this.isLogged);
   }
 
   onLogOut(): void {

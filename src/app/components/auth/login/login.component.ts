@@ -28,11 +28,12 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   /* if (this.tokenService.getToken()) {
+    if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
-    }*/
+    }
+   
   }
 
   onLogin(): void {
@@ -40,15 +41,15 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginUsuario).subscribe(
       data => {
         this.isLogged = true;
-
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.nombreUsuario);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
+        
         this.toastr.success('Bienvenido ' + data.nombreUsuario, 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
-        this.router.navigate(['/equipos']);
+        this.refresh();
       },
       err => {
         this.isLogged = false;
@@ -56,8 +57,14 @@ export class LoginComponent implements OnInit {
         this.toastr.error(this.errMsj, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        // console.log(err.error.message);
+         console.log(err.error.message);
       }
     );
+    this.router.navigate(['/equipos']);
+   
   }
+
+  refresh(): void {
+    window.location.reload();
+}
 }

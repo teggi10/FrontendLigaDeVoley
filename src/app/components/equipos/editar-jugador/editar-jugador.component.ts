@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Jugador } from 'src/app/models/jugador';
+import { EquipoService } from 'src/app/services/equipo.services';
 import { JugadorService } from 'src/app/services/jugador.services';
 
 @Component({
@@ -13,7 +15,9 @@ export class EditarJugadorComponent implements OnInit {
 idJugador! :number;
 jugador!: Jugador;
 jugadorForm: FormGroup;
-  constructor(private router : Router,private aRoute: ActivatedRoute, private jugadorService: JugadorService,private fb: FormBuilder) {
+idEquipo!: number;
+  constructor(private equipoService: EquipoService ,private router : Router,private aRoute: ActivatedRoute,
+     private jugadorService: JugadorService,private fb: FormBuilder,private toastr: ToastrService) {
     this.jugadorForm = this.fb.group({
       idJugador: [''],
       nombre: ['', Validators.required],
@@ -30,6 +34,7 @@ jugadorForm: FormGroup;
    /* this.aRoute.params.subscribe(params => {
       this.idJugador = params['id']; 
     })*/
+    this.idEquipo = this.aRoute.snapshot.params.idEquipo;
     this.idJugador = this.aRoute.snapshot.params.id;
     this.obtenerJugador(this.idJugador);
   }
@@ -38,13 +43,11 @@ jugadorForm: FormGroup;
     this.jugadorService.getJugador(idJugador).subscribe(data => {
      this.jugador = data;
      this.rellenarCampos(data);
-     console.log(this.jugador);
     }, error => {
       console.log(error);
     });
     
       }
-
      
       public rellenarCampos(jugador: Jugador){
         this.jugadorForm = this.fb.group({
@@ -59,9 +62,6 @@ jugadorForm: FormGroup;
         })
       }
 
-      volver(){
-        this.router.navigate(['equipos/jugadores'],{queryParams: {id: this.jugador.equipo.idEquipo}})
-      }
 
   actualizarJugador(this: any){
     const JUGADOR: Jugador ={
@@ -76,8 +76,8 @@ jugadorForm: FormGroup;
     }
    
     this.jugadorService.actualizarJugador(this.idJugador,JUGADOR).subscribe(() => {
-      this.toastr.success('El jugador  fue actualizado con exito', 'Jugador actualizado');
-      this.router.navigate(['/jugadores'],{queryParams: {id: this.jugador.idEquipo}})
+      this.toastr.success('El jugador  fue actualizado con exito', 'Jugador actualizado',{ "positionClass" : "toast-top-center"});
+      this.router.navigate(['/jugadores/',this.idEquipo])
     }, (error: any) =>{
       console.log(error);
       this.jugadorForm.reset();

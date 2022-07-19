@@ -21,7 +21,6 @@ export class EquiposComponent implements OnInit {
 
   ngOnInit(): void {
 this.obtenerEquipos()
-
   }
 
   verJugadores(): void {
@@ -63,14 +62,6 @@ this.obtenerEquipos()
       console.log(error);
     })
   }
-
-  /*obtenerEquipo(){
-    this.equipoService.getEquipo().subscribe(data => {
-      console.log(data);
-      this.equipo= data;
-    },error => {
-      console.log(error);
-    })*/
   }
 
 

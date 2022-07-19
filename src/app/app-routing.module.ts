@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'equipos', component: EquiposComponent},
   {path: 'jugadores/:id', component: JugadoresComponent},   
   {path: 'agregar-jugador/:id', component: AgregarJugadorComponent, canActivate : [EquipoGuardService], data: {expectedRol:['admin']}}, 
-  {path: 'editar-jugador/:id', component: EditarJugadorComponent, canActivate : [EquipoGuardService], data: {expectedRol:['admin']}},
+  {path: 'editar-jugador/:id/:idEquipo', component: EditarJugadorComponent, canActivate : [EquipoGuardService], data: {expectedRol:['admin']}},
   {path: '**', component: PageNotFoundComponent}
 ];
 

@@ -1,0 +1,17 @@
+{
+    "/equipo/*":{
+        "target":"https://liga-de-voley.herokuapp.com",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/jugador/*":{
+        "target":"https://liga-de-voley.herokuapp.com",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/auth/*":{
+        "target":"https://liga-de-voley.herokuapp.com",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

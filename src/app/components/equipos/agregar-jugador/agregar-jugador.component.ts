@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { filter } from 'rxjs/operators';
 import { Equipo } from 'src/app/models/equipo';
 import { Jugador } from 'src/app/models/jugador';
 import { EquipoService } from 'src/app/services/equipo.services';
@@ -49,13 +48,8 @@ export class AgregarJugadorComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    /*this.aRoute.queryParams.pipe(filter(params => params.id)).subscribe(params => {
-      this.id = params.id;
-    })*/
-    
-    this.id = this.aRoute.snapshot.params.id;
 
-    console.log(this.id);
+    this.id = this.aRoute.snapshot.params.id;
     this.equipoService.getEquipo(this.id).subscribe((data: Equipo) =>{
       this.equipo.nombre = data.nombre;
       this.equipo.localidad = data.localidad;
@@ -81,25 +75,12 @@ export class AgregarJugadorComponent implements OnInit {
     
     this.jugadorService.guardarJugador(JUGADOR).subscribe(() => {
       this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
-     
+      this.router.navigate(['/jugadores/',this.id])
     },
     (error: any) =>{
       console.log(error);
       
     });
-
-   /* this.equipo.jugadores.push(JUGADOR);
-    console.log(this.equipo);
-
-    this.equipoService.actualizarEquipo(this.id, this.equipo).subscribe(() => {
-      this.toastr.success('El equipo  fue actualizado con exito', 'Equipo actualizado');
-      this.router.navigate(['jugadores/'],{queryParams: {id: this.jugador.idEquipo}})
-    }, (error: any) =>{
-      console.log(error);
-      this.jugadorForm.reset();
-      
-    }
-    )*/
   }
 }
    

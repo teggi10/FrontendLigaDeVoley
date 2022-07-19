@@ -31,7 +31,7 @@ export class JugadoresComponent implements OnInit {
   mesActual = this.fecha.getMonth() + 1; 
   fechaValida = true;
   fechas : Fecha[] = [];
-  ultimaModificacion!:Date;
+  fechaModificacionValida!: string;
   constructor(private fechasService: FechasService , private tokenService: TokenService,private router: Router,private toastr: ToastrService, private equipoService: EquipoService, private aRoute: ActivatedRoute, private jugadorService: JugadorService) { 
   
   }
@@ -56,12 +56,15 @@ this.fechasService.getFechas().subscribe(data => {
   this.fechas = data; 
   while (i <= data.length && this.fechaValida) {
      if(data[i].mes == this.mesActual){
-      if(this.diaActual > (data[i].dia - 7)){
+      if(this.diaActual > (data[i].diaValido) && this.diaActual < data[i].dia){
         this.fechaValida = false;
-      }else if(this.diaActual > data[i].dia){
-        this.fechaValida = true;
-      }else{
-        this.fechaValida = true;
+        this.fechaModificacionValida = data[i].diaValido + "/" + data[i].mesValido;
+      }
+      else if(this.diaActual > data[i].dia){
+        if(this.diaActual < data[i+1].diaValido){
+          this.fechaValida = true;
+          this.fechaModificacionValida = data[i+1].diaValido + "/" + data[i+1].mesValido;
+        }
       }
      }
       i++;
@@ -95,28 +98,9 @@ this.fechasService.getFechas().subscribe(data => {
     })
      this.jugadorService.borrarJugador(id).subscribe(() => {
       this.toastr.success('El jugador  fue eliminado con exito', 'Jugador eliminado');
-      //this.router.navigate(['jugadores'],{queryParams: {id: this.idEquipo}});
     }, (error: any) =>{
       console.log(error);
     });
-
-    
-  /*
-     console.log(this.jugadores);
-
-   this.equipoService.getEquipo(this.idEquipo).subscribe(data => {
-    equipo = data;
-    equipo.jugadores = this.jugadores;
-    console.log(equipo);
-    this.equipoService.actualizarEquipo(this.idEquipo,equipo).subscribe(() => {
-      this.toastr.success('El jugador  fue eliminado con exito', 'Jugador eliminado');
-      this.router.navigate(['/jugadores/{{this.id}}']);
-    }, (error: any) =>{
-      console.log(error);
-    });
-    
-  })*/
-  
    
       }
       public editarJugador(id: number){
