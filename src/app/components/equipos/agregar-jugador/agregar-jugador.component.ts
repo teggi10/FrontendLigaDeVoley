@@ -29,6 +29,8 @@ export class AgregarJugadorComponent implements OnInit {
     nombreClave: '',
     categoria:''
   };
+  jugadores! : Jugador[];
+  jugadoresEquipo! : Jugador[];
 
 
   constructor( private fb: FormBuilder, private router: Router, private toastr: ToastrService, private aRoute: ActivatedRoute, private equipoService : EquipoService, private jugadorService : JugadorService) { 
@@ -40,7 +42,8 @@ export class AgregarJugadorComponent implements OnInit {
       posicion: [''],
       equipo: [{}],
       dni: ['', Validators.required],
-      fechaNac: ['', Validators.required]
+      fechaNac: ['', Validators.required],
+      eliminado:[false]
     })
     
 
@@ -58,6 +61,10 @@ export class AgregarJugadorComponent implements OnInit {
       this.equipo.jugadores = data.jugadores;
       this.equipo.categoria = data.categoria;
       this.equipo.idEquipo = data.idEquipo;
+      this.jugadoresEquipo =this.equipo.jugadores.filter((jugador: { eliminado: boolean; }) => !jugador.eliminado);
+    })
+    this.jugadorService.getJugadores().subscribe(data => {
+      this.jugadores = data;
     })
   }
  
@@ -70,17 +77,40 @@ export class AgregarJugadorComponent implements OnInit {
       posicion : this.jugadorForm.get('posicion')?.value,
       equipo: this.equipo,
       dni: this.jugadorForm.get('dni')?.value,
-      fechaNac: this.jugadorForm.get('fechaNac')?.value
+      fechaNac: this.jugadorForm.get('fechaNac')?.value,
+      eliminado: this.jugadorForm.get('eliminado').value
     }
     
-    this.jugadorService.guardarJugador(JUGADOR).subscribe(() => {
-      this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
-      this.router.navigate(['/jugadores/',this.id])
-    },
-    (error: any) =>{
-      console.log(error);
-      
-    });
+    if(this.jugadoresEquipo.length < 18){
+      if(this.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))){
+        if(this.equipo.jugadores.find((jugador: Jugador) =>(jugador.nombre == JUGADOR.nombre))){
+          this.jugadorService.actualizarJugador(this.equipo.jugadores.find((jugador: Jugador) =>(jugador.nombre == JUGADOR.nombre)).idJugador,JUGADOR).subscribe(() => {
+            this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
+            this.router.navigate(['/jugadores/',this.id])
+          },
+          (error: any) =>{
+            console.log(error)
+            this.toastr.error(error, 'ERROR');
+            
+          });
+        }else{
+          this.toastr.error('Este jugador fue anotado en otro equipo', 'ERROR');
+        }
+      }else{
+        this.jugadorService.guardarJugador(JUGADOR).subscribe(() => {
+          this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
+          this.router.navigate(['/jugadores/',this.id])
+        },
+        (error: any) =>{
+          console.log(error)
+          this.toastr.error(error, 'ERROR');
+          
+        });
+      }
+    }else{
+      this.toastr.error('La cantidad maxima de jugadores por equipo es 18', 'Cantidad maxima alcanzada');
+    }
+
   }
 }
    

@@ -10,8 +10,9 @@ export class Jugador {
     dni: number;
     numero:number;
     equipo: Equipo;
+    eliminado:boolean;
 
-    constructor(idJugador:number,nombre:string,apellido:string,posicion:string,numero:number,dni:number,fechaNac:string, equipo : Equipo){
+    constructor(idJugador:number,nombre:string,apellido:string,posicion:string,numero:number,dni:number,fechaNac:string,eliminado:boolean, equipo : Equipo){
         this.nombre = nombre;
         this.apellido = apellido;
         this.posicion = posicion;
@@ -20,5 +21,6 @@ export class Jugador {
         this.idJugador = idJugador;
         this.dni = dni;
         this.fechaNac = fechaNac;
+        this.eliminado = eliminado;
     }
 }

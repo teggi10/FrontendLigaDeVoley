@@ -26,13 +26,13 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let jugador of jugadores">
-                            <td>{{jugador.nombre}}</td>
-                            <td>{{jugador.apellido}}</td>
-                            <td>{{jugador.numero}}</td>
-                            <td>{{jugador.posicion}}</td>
-                            <td *ngIf="isAdminEquipo || isAdmin">{{jugador.fechaNac}}</td>
-                            <td *ngIf="isAdminEquipo || isAdmin">{{jugador.dni}}</td>
-                            <td class="d-flex" *ngIf="isAdminEquipo  && fechaValida">
+                            <td *ngIf="!jugador.eliminado">{{jugador.nombre}}</td>
+                            <td *ngIf="!jugador.eliminado">{{jugador.apellido}}</td>
+                            <td *ngIf="!jugador.eliminado">{{jugador.numero}}</td>
+                            <td *ngIf="!jugador.eliminado">{{jugador.posicion}}</td>
+                            <td *ngIf="(isAdminEquipo || isAdmin) && !jugador.eliminado">{{jugador.fechaNac}}</td>
+                            <td *ngIf="(isAdminEquipo || isAdmin) && !jugador.eliminado">{{jugador.dni}}</td>
+                            <td class="d-flex" *ngIf="isAdminEquipo  && fechaValida && !jugador.eliminado">
                             <button routerLink="/editar-jugador/{{jugador.idJugador}}/{{this.idEquipo}}"  class="btn btn-sm"><i class="far fa-edit text-primary "></i></button>
                             <button (click)="eliminarJugador(jugador.idJugador)"  class="btn btn-sm"><i  class="fas fa-trash text-danger " ></i></button>
                              </td>

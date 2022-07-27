@@ -26,7 +26,8 @@ idEquipo!: number;
       posicion: [''],
       equipo:[{}],
       dni:['', Validators.required],
-      fechaNac:['', Validators.required]
+      fechaNac:['', Validators.required],
+      eliminado:['']
     })
    }
 
@@ -58,7 +59,8 @@ idEquipo!: number;
           posicion: [jugador.posicion],
           equipo:[jugador.equipo],
           dni: [jugador.dni, Validators.required],
-          fechaNac: [jugador.fechaNac, Validators.required]
+          fechaNac: [jugador.fechaNac, Validators.required],
+          eliminado: [jugador.eliminado]
         })
       }
 
@@ -72,7 +74,8 @@ idEquipo!: number;
       posicion : this.jugadorForm.get('posicion')?.value,
       equipo: this.jugador.equipo,
       dni: this.jugadorForm.get('dni')?.value,
-      fechaNac: this.jugadorForm.get('fechaNac')?.value
+      fechaNac: this.jugadorForm.get('fechaNac')?.value,
+      eliminado: this.jugadorForm.get('eliminado').value
     }
    
     this.jugadorService.actualizarJugador(this.idJugador,JUGADOR).subscribe(() => {

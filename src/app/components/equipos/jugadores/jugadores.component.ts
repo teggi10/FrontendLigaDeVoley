@@ -83,7 +83,8 @@ this.fechasService.getFechas().subscribe(data => {
    
     public obtenerJugadores(idEquipo:number){
       this.equipoService.getEquipo(idEquipo).subscribe(data => {
-       this.jugadores = data.jugadores;
+       this.jugadores = data.jugadores.filter(jugador => !jugador.eliminado);
+       console.log(data.jugadores);
       }, error => {
         console.log(error);
       });
@@ -91,16 +92,19 @@ this.fechasService.getFechas().subscribe(data => {
         }
 
     public eliminarJugador(id: number){
-     alert('¿Seguro desea eliminar este jugador?');
-     this.jugadores.forEach( jugador => {
-      if(jugador.idJugador == id)
-      this.jugadores.splice(this.jugadores.indexOf(jugador), 1)
-    })
-     this.jugadorService.borrarJugador(id).subscribe(() => {
-      this.toastr.success('El jugador  fue eliminado con exito', 'Jugador eliminado');
-    }, (error: any) =>{
-      console.log(error);
-    });
+    let result =  confirm('¿Seguro desea eliminar este jugador?');
+   if (result != false){
+  this.jugadores.forEach( jugador => {
+    if(jugador.idJugador == id)
+    this.jugadores.splice(this.jugadores.indexOf(jugador), 1)
+  })
+   this.jugadorService.borrarJugador(id).subscribe(() => {
+    this.toastr.success('El jugador  fue eliminado con exito', 'Jugador eliminado');
+  }, (error: any) =>{
+    console.log(error);
+  });
+}
+   
    
       }
       public editarJugador(id: number){
