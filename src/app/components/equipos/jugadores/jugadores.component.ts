@@ -29,7 +29,7 @@ export class JugadoresComponent implements OnInit {
   fecha = new Date(this.tiempoTranscurrido);
   diaActual = this.fecha.getDate();
   mesActual = this.fecha.getMonth() + 1; 
-  fechaValida = true;
+  fechaValida = false;
   fechas : Fecha[] = [];
   fechaModificacionValida!: string;
   constructor(private fechasService: FechasService , private tokenService: TokenService,private router: Router,private toastr: ToastrService, private equipoService: EquipoService, private aRoute: ActivatedRoute, private jugadorService: JugadorService) { 
@@ -45,8 +45,8 @@ export class JugadoresComponent implements OnInit {
       if(rol == 'ROLE_ADMIN'){
        this.isAdmin = true;
 }
-    })
-   this.validarFecha();
+   })
+  // this.validarFecha();
     }
 
 
@@ -83,12 +83,13 @@ this.fechasService.getFechas().subscribe(data => {
    
     public obtenerJugadores(idEquipo:number){
       this.equipoService.getEquipo(idEquipo).subscribe(data => {
-       this.jugadores = data.jugadores.filter(jugador => !jugador.eliminado);
-       console.log(data.jugadores);
+        const filteredPlayers = data.jugadores.filter(jugador => jugador.eliminado !== true);
+        this.jugadores = filteredPlayers;
+        console.log(data.jugadores);
+        console.log(this.jugadores);
       }, error => {
         console.log(error);
-      });
-      
+      });   
         }
 
     public eliminarJugador(id: number){

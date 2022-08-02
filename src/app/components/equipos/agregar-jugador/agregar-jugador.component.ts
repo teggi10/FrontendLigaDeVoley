@@ -61,7 +61,7 @@ export class AgregarJugadorComponent implements OnInit {
       this.equipo.jugadores = data.jugadores;
       this.equipo.categoria = data.categoria;
       this.equipo.idEquipo = data.idEquipo;
-      this.jugadoresEquipo =this.equipo.jugadores.filter((jugador: { eliminado: boolean; }) => !jugador.eliminado);
+      this.jugadoresEquipo =this.equipo.jugadores.filter((jugador) => jugador.eliminado !== true);
     })
     this.jugadorService.getJugadores().subscribe(data => {
       this.jugadores = data;
@@ -80,16 +80,16 @@ export class AgregarJugadorComponent implements OnInit {
       fechaNac: this.jugadorForm.get('fechaNac')?.value,
       eliminado: this.jugadorForm.get('eliminado').value
     }
-    
+//console.log(this.jugadores.includes(this.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))));
+//console.log(this.equipo.jugadores.includes(this.equipo.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))));
     if(this.jugadoresEquipo.length < 18){
-      if(this.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))){
-        if(this.equipo.jugadores.find((jugador: Jugador) =>(jugador.nombre == JUGADOR.nombre))){
-          this.jugadorService.actualizarJugador(this.equipo.jugadores.find((jugador: Jugador) =>(jugador.nombre == JUGADOR.nombre)).idJugador,JUGADOR).subscribe(() => {
+      if(this.jugadores.includes(this.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))) == true){
+        if(this.equipo.jugadores.includes(this.equipo.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))) == true){
+          this.jugadorService.actualizarJugador(this.equipo.jugadores.find((jugador: Jugador) =>(jugador.dni == JUGADOR.dni)).idJugador,JUGADOR).subscribe(() => {
             this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
             this.router.navigate(['/jugadores/',this.id])
           },
           (error: any) =>{
-            console.log(error)
             this.toastr.error(error, 'ERROR');
             
           });
