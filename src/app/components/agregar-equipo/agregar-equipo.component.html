@@ -1,0 +1,60 @@
+<br>
+<br>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-5">
+      <div class="card text-dark">
+        <div class="card-body text-center">
+          <span class="titulo">AGREGAR EQUIPO</span>
+          <form class="mt-3"  [formGroup]="equipoForm" (ngSubmit)="agregarEquipo()">
+            <div class="mb-3 form-floating">
+                <input type="text"  formControlName="nombre"  id="nombre" class="form-control form-control-lg fs-5" placeholder="Nombre">
+                <label for="nombre" class="text-sm fs-5">Nombre*</label>
+                 <div class="text-danger" *ngIf="equipoForm.get('nombre')?.hasError('required') && equipoForm.get('nombre')?.touched">
+                     <span>El nombre del jugador <strong>es obligatorio</strong></span>
+                 </div>         
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" id="localidad" formControlName="localidad" class="form-control form-control-lg fs-5 " placeholder="Localidad">
+                <label for="apellido" class="text-sm fs-5">Localidad*</label>
+                <div class="text-danger" *ngIf="equipoForm.get('localidad')?.hasError('required') && equipoForm.get('localidad')?.touched">
+                    <span>La localidad del equipo <strong>es obligatorio</strong></span>
+                </div> 
+            </div>
+            <div class="mb-3 form-floating">
+                <select type="text"  id="sexo" formControlName="sexo" class="form-control form-control-lg" placeholder="Género">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+                <label for="sexo" class="text-sm fs-5">Género</label>
+                <div class="text-danger" *ngIf="equipoForm.get('sexo')?.hasError('required') && equipoForm.get('sexo')?.touched">
+                    <span>El genero del equipo <strong>es obligatorio</strong></span>
+                </div> 
+            </div>
+            <div class="mb-3 form-floating">
+              <select id="categoria" formControlName="categoria" class="form-control form-control-lg" placeholder="Categoria">
+                    <option value="Primera A">Primera A</option>
+                    <option value="Primera B">Primera B</option>
+                    <option value="Primera C">Primera C</option>
+                    <option value="Maxi voley">Maxi voley</option>
+                    <option value="Sub 18">Sub 18</option>
+                    <option value="Sub 16">Sub 16</option>
+                    <option value="Sub 14">Sub 14</option>
+              </select>
+              <label for="categoria" class="text-sm fs-5">Categoria*</label>
+              <div class="text-danger" *ngIf="equipoForm.get('categoria')?.hasError('required') && equipoForm.get('categoria')?.touched">
+                  <span>El categoria del jugador <strong>es obligatoria</strong></span>
+              </div> 
+          </div>
+        <span class="text-muted">Los campos con * son obligatorios </span>
+            <div class="mt-3">
+                <button class="btn btn-secondary btn-lg float-start" routerLink="/perfil">Volver</button>
+                <button class="btn btn-success btn-lg float-end" [disabled]="equipoForm.invalid" type="submit">Aceptar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

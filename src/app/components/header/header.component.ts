@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 import { EquipoService } from 'src/app/services/equipo.services';
 import { TokenService } from 'src/app/services/token.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +14,34 @@ export class HeaderComponent implements OnInit {
 
   isLogged = false;
 
-  constructor(private tokenService: TokenService, private equipoService: EquipoService) { }
+  constructor(private tokenService: TokenService, private equipoService: EquipoService,
+     private comunicacionService: ComunicacionService, private location: Location, private router:Router) { }
 
   ngOnInit() {
-    if (this.tokenService.getToken()) {
+   this.comunicacionService.getCurrenUser().subscribe(user => {
+    if(user.username){
       this.isLogged = true;
-    } else {
+    }else{
       this.isLogged = false;
     }
+   })
   }
 
   onLogOut(): void {
     this.tokenService.logOut();
-    window.location.reload();
+    this.comunicacionService.setCurrentUser({username: '', password: ''});
+    this.isLogged = false;
+    this.router.navigate(['/inicio']);
+  
+  }
+
+  goToEquiposPerCategory(category:string){
+     this.router.navigate(['/equipos/' + category]);
+     this.comunicacionService.setCurrentCategory(category);
+  }
+
+  private getCurrentPath(): string | undefined {
+    return this.location.path().split('?').shift();
   }
 
  /* obtenerEquipos(){

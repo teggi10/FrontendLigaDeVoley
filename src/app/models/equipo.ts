@@ -1,23 +1,23 @@
 import { Jugador } from "./jugador";
 
 export class Equipo {
-    idEquipo?:number;
-    nombre?:string;
-    localidad?:string;
-    sexo?:string;
-    nombreClave: string;
+    id?:number;
+    nombre:string;
+    localidad:string;
+    sexo:string;
     puntos:number;
     categoria:string;
-    jugadores:Jugador[];
+    userId:number;
 
 
-    constructor(nombre:string,localidad:string,sexo:string,puntos:number,nombreClave:string,categoria:string,jugadores:Jugador[]){
+    constructor(id:number,nombre:string,localidad:string,sexo:string,puntos:number,categoria:string,userId:number){
+        this.id = id;
         this.nombre = nombre;
-        this.jugadores = jugadores;
         this.localidad = localidad;
         this.sexo = sexo;
         this.puntos = puntos;
         this.categoria = categoria;
-        this.nombreClave = nombreClave;
+        this.userId = userId;
+        
     }
 }

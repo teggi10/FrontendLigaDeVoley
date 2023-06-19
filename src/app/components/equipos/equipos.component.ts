@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Equipo } from 'src/app/models/equipo';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 import { EquipoService } from 'src/app/services/equipo.services';
 
 @Component({
@@ -15,22 +16,32 @@ export class EquiposComponent implements OnInit {
   equiposMasculino : Equipo[]= [];
   equipo!: Equipo;
   id :string = '';
-  constructor(private equipoService:EquipoService,private router:Router) { 
+  category!: string;
+  reload = false;
+  loading = false;
+  constructor(private equipoService:EquipoService,private router:Router, private aRoute: ActivatedRoute,
+    private comunicacionService: ComunicacionService) { 
 
   }
 
   ngOnInit(): void {
-this.obtenerEquipos()
+    this.category = this.aRoute.snapshot.params.categoria;
+    this.comunicacionService.getCurrentCategory().subscribe(category => {
+        
+        this.category = category;
+        this.obtenerEquipos();
+    })
   }
 
-  verJugadores(): void {
-    
-   this.router.navigate(['equipos/jugadores'],{queryParams: {id: this.id}})
+  verJugadores(idEquipo: number | undefined): void {
+    this.router.navigate(['/jugadores/' + idEquipo] ,{queryParams: {backTo: this.category}} )
   }
 
   obtenerEquipos(){
-    this.equipoService.getEquipos().subscribe(data => { 
+    this.loading = true;
+    this.equipoService.getEquiposByCategory(this.category).subscribe(data => { 
       this.equiposTotal= data;
+      this.loading = false;
     },error => {
       console.log(error);
     })

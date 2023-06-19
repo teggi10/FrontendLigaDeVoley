@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  renderURL: 'https://api-ligadevoley.onrender.com/api/'
 };

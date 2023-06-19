@@ -29,7 +29,13 @@
                 </div> 
             </div>
             <div class="mb-3 form-floating">
-                <input type="text"  id="posicion" formControlName="posicion" class="form-control form-control-lg" placeholder="Posicion">
+              <select type="text"  id="posicion" formControlName="posicion" class="form-control form-control-lg" placeholder="Posicion">
+                <option value="Armador">Armador</option>
+                <option value="Punta">Punta</option>
+                <option value="Opuesto">Opuesto</option>
+                <option value="Libero">Libero</option>
+                <option value="Central">Central</option>
+              </select>
                 <label for="posicion" class="text-sm fs-5">Posicion</label>
                 <div class="text-danger" *ngIf="jugadorForm.get('posicion')?.hasError('required') && jugadorForm.get('posicion')?.touched">
                     <span>La posicion del jugador <strong>es obligatoria</strong></span>
@@ -43,15 +49,15 @@
               </div> 
           </div>
           <div class="mb-3 form-floating">
-            <input type="date"  id="fechaNac" formControlName="fechaNac" class="form-control form-control-lg" placeholder="Fecha de nacimiento. Por ejemplo : 19/05/2000">
+            <input type="date"  id="fechaNac" formControlName="fecha_nac" class="form-control form-control-lg" placeholder="Fecha de nacimiento. Por ejemplo : 19/05/2000">
             <label for="fechaNac" class="text-sm fs-5">Fecha de Nacimiento*</label>
-            <div class="text-danger" *ngIf="jugadorForm.get('fechaNac')?.hasError('required') && jugadorForm.get('fechaNac')?.touched">
+            <div class="text-danger" *ngIf="jugadorForm.get('fecha_nac')?.hasError('required') && jugadorForm.get('fecha_nac')?.touched">
                 <span>La fecha de nacimiento del jugador <strong>es obligatoria</strong></span>
             </div> 
         </div>
         <span class="text-muted">Los campos con * son obligatorios </span>
               <div class="mt-5">
-                  <button class="btn btn-secondary btn-lg float-start" routerLink="/jugadores/{{this.idEquipo}}">Volver</button>
+                  <button class="btn btn-secondary btn-lg float-start" (click)="volver()">Volver</button>
                   <button class="btn btn-success btn-lg float-end" [disabled]="jugadorForm.invalid" >Aceptar</button>
               </div>
             </form>

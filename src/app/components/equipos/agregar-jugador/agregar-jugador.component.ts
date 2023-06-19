@@ -20,14 +20,13 @@ export class AgregarJugadorComponent implements OnInit {
   jugadorForm: FormGroup;
   id!:number;
   equipo: Equipo = {
-    idEquipo : 0,
-    nombre : '',
-    localidad : '',
+    id: 0,
+    nombre: '',
+    localidad: '',
     sexo: '',
     puntos: 0,
-    jugadores : [],
-    nombreClave: '',
-    categoria:''
+    categoria: '',
+    userId: 0
   };
   jugadores! : Jugador[];
   jugadoresEquipo! : Jugador[];
@@ -35,14 +34,14 @@ export class AgregarJugadorComponent implements OnInit {
 
   constructor( private fb: FormBuilder, private router: Router, private toastr: ToastrService, private aRoute: ActivatedRoute, private equipoService : EquipoService, private jugadorService : JugadorService) { 
     this.jugadorForm = this.fb.group({
-      idJugador: [''],
+      id: [''],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      numero: [''],
-      posicion: [''],
-      equipo: [{}],
+      numero: [null],
+      posicion: [""],
+      equipo: [],
       dni: ['', Validators.required],
-      fechaNac: ['', Validators.required],
+      fecha_nac: ['', Validators.required],
       eliminado:[false]
     })
     
@@ -52,7 +51,8 @@ export class AgregarJugadorComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.id = this.aRoute.snapshot.params.id;
+     this.id = this.aRoute.snapshot.params.id;
+     /*
     this.equipoService.getEquipo(this.id).subscribe((data: Equipo) =>{
       this.equipo.nombre = data.nombre;
       this.equipo.localidad = data.localidad;
@@ -65,24 +65,46 @@ export class AgregarJugadorComponent implements OnInit {
     })
     this.jugadorService.getJugadores().subscribe(data => {
       this.jugadores = data;
-    })
+    }) */
+  }
+  volver(){
+    this.router.navigate(['/jugadores/' + this.id],{queryParams: {backTo: 'perfil'}})
   }
  
   agregarJugador(this: any){
     const JUGADOR: Jugador ={
-      idJugador: 0,
+      id: 0,
       nombre : this.jugadorForm.get('nombre')?.value,
       apellido : this.jugadorForm.get('apellido')?.value,
       numero : this.jugadorForm.get('numero')?.value,
       posicion : this.jugadorForm.get('posicion')?.value,
-      equipo: this.equipo,
+      equipoId: this.id,
       dni: this.jugadorForm.get('dni')?.value,
-      fechaNac: this.jugadorForm.get('fechaNac')?.value,
+      fecha_nac: this.jugadorForm.get('fecha_nac')?.value,
       eliminado: this.jugadorForm.get('eliminado').value
     }
+
+    this.jugadorService.guardarJugador(JUGADOR).subscribe((res: any) => {
+      if(res.jugador){
+        this.toastr.success('El jugador  fue cargado con exito', 'Jugador cargado');
+        this.router.navigate(['/jugadores/',this.id])
+      }else{
+        if(res.msg){
+          this.toastr.error(res.msg, 'Error');
+        }else{
+          this.toastr.error(res, 'Error');
+        }
+        
+      }
+    }),
+    (error: any) =>{
+      console.log(error)
+      this.toastr.error(error, 'ERROR');
+      
+    };
 //console.log(this.jugadores.includes(this.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))));
 //console.log(this.equipo.jugadores.includes(this.equipo.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))));
-    if(this.jugadoresEquipo.length < 18){
+   /*  if(this.jugadoresEquipo.length < 18){
       if(this.jugadores.includes(this.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))) == true){
         if(this.equipo.jugadores.includes(this.equipo.jugadores.find((jugador: Jugador) => (jugador.dni == JUGADOR.dni))) == true){
           this.jugadorService.actualizarJugador(this.equipo.jugadores.find((jugador: Jugador) =>(jugador.dni == JUGADOR.dni)).idJugador,JUGADOR).subscribe(() => {
@@ -109,7 +131,7 @@ export class AgregarJugadorComponent implements OnInit {
       }
     }else{
       this.toastr.error('La cantidad maxima de jugadores por equipo es 18', 'Cantidad maxima alcanzada');
-    }
+    } */
 
   }
 }

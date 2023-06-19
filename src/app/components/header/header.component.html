@@ -15,14 +15,29 @@
               <li class="nav-item">
                 <a class="nav-link " routerLink='/liga-interna' routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}">Liga Interna</a>
               </li>-->
-              <li class="nav-item mx-0 mx-lg-1">
-                <a class="nav-link text-white py-3 px-0 px-lg-3 rounded" routerLink='/equipos' routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" >Equipos</a>
+              <li class="nav-item mx-0 mx-lg-1 btn-group d-flex justify-content-between align-items-center">
+              
+                <button  type="button" [matMenuTriggerFor]="afterMenu" class="btn btn-dark d-flex"><a class="nav-link text-white py-3 px-0 px-lg-3 rounded justify-self-start">Regional</a></button>
+                <mat-menu #afterMenu="matMenu" xPosition="after" class="bg-dark" >
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Primera A')"> <span class="text-white">Primera A</span></button>
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Primera B')"><span class="text-white">Primera B</span></button>
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Primera C')"><span class="text-white">Primera C</span></button>
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Maxi voley')"><span class="text-white">Maxi voley</span></button>
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Sub 18')"><span class="text-white">Sub 18</span></button>
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Sub 16')"><span class="text-white">Sub 16</span></button>
+                  <button mat-menu-item (click)="goToEquiposPerCategory('Sub 14')"><span class="text-white">Sub 14</span></button>
+                </mat-menu>
               </li>
-
-              <li class="nav-item mx-0 mx-lg-1" *ngIf="!isLogged">
+              <li class="nav-item mx-0 mx-lg-1 d-flex justify-content-between align-items-center" *ngIf="!isLogged">
+                <a class="nav-link text-white py-3 px-0 px-lg-3 rounded"  routerLink="/registro"><mat-icon>person_add</mat-icon> Registrate</a>
+              </li> 
+              <li class="nav-item mx-0 mx-lg-1 d-flex justify-content-between align-items-center" *ngIf="isLogged">
+                <a class="nav-link text-white py-3 px-0 px-lg-3 rounded"  routerLink="/perfil"><mat-icon>person</mat-icon> Perfil</a>
+              </li>
+              <li class="nav-item mx-0 mx-lg-1 d-flex justify-content-between align-items-center" *ngIf="!isLogged">
                 <a class="nav-link text-white py-3 px-0 px-lg-3 rounded"  routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
               </li>
-              <li class="nav-item mx-0 mx-lg-1" *ngIf="isLogged" (click)="onLogOut()">
+              <li class="nav-item mx-0 mx-lg-1 d-flex justify-content-between align-items-center" *ngIf="isLogged" (click)="onLogOut()">
                 <a class="nav-link text-white py-3 px-0 px-lg-3 rounded " style="cursor: pointer;"><i class="fas fa-door-open" ></i> Cerrar Sesión</a>
               </li>
   

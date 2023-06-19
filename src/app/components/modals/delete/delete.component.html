@@ -1,0 +1,14 @@
+<div class="container d-flex flex-column justify-content-center align-items-center h-100 w-100">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-dark w-100">Seguro que desea eliminar: <strong> {{this.data.nombre}}</strong></h2>
+    
+            <h3 class="text-dark w-100">Se perdera toda la informacion relacionada y no se podra recuperar</h3>
+        
+            <div class="botones d-flex justify-content-between">
+                <button class="btn btn-danger btn-lg ml-3" (click)="cancelar()">Cancelar</button>
+                <button class="btn btn-secondary btn-lg mr-3" (click)="aceptar()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

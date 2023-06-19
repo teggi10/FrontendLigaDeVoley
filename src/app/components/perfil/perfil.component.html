@@ -1,0 +1,25 @@
+<div class="container min-vh-100 d-flex flex-column justify-content-start align-items-center">
+    <h1 class="text-center">{{this.currentUser.username}}, estos son tus equipos</h1>
+
+    <button class="btn btn-success align-self-end mt-3" routerLink="/agregar-equipo">Inscribir equipo</button>
+
+    
+        <ul class="list-group w-100 mt-5">
+            <li class="list-group-item d-flex justify-content-between" *ngFor="let equipo of equiposOfUser">
+                <div class="d-flex justify-content-around">
+                    <span >{{equipo.nombre}}</span>
+                    <span class="mx-3">{{equipo.sexo}}</span>
+                    <span >{{equipo.categoria}}</span>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <mat-icon (click)="verJugadores(equipo.id)">people</mat-icon>
+                    <mat-icon  class="mx-3" routerLink="/editar-equipo/{{equipo.id}}">edit</mat-icon>
+                    <mat-icon (click)="openDeleteModal(equipo.nombre,equipo.id)">delete</mat-icon>
+                </div>
+
+            </li>
+        </ul>
+        <h2 *ngIf="equiposOfUser.length == 0" class="mt-5">Todavia no tenes equipos inscriptos en la liga</h2>
+   
+   
+</div>

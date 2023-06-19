@@ -19,23 +19,20 @@ idEquipo!: number;
   constructor(private equipoService: EquipoService ,private router : Router,private aRoute: ActivatedRoute,
      private jugadorService: JugadorService,private fb: FormBuilder,private toastr: ToastrService) {
     this.jugadorForm = this.fb.group({
-      idJugador: [''],
+      id: [0],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       numero: [''],
       posicion: [''],
-      equipo:[{}],
+      equipoId:[0],
       dni:['', Validators.required],
-      fechaNac:['', Validators.required],
-      eliminado:['']
+      fecha_nac:['', Validators.required],
+      eliminado:[false]
     })
    }
 
   ngOnInit(): void {
-   /* this.aRoute.params.subscribe(params => {
-      this.idJugador = params['id']; 
-    })*/
-    this.idEquipo = this.aRoute.snapshot.params.idEquipo;
+    this.idEquipo = this.aRoute.snapshot.queryParams['idEquipo'];
     this.idJugador = this.aRoute.snapshot.params.id;
     this.obtenerJugador(this.idJugador);
   }
@@ -47,35 +44,50 @@ idEquipo!: number;
     }, error => {
       console.log(error);
     });
-    
       }
      
       public rellenarCampos(jugador: Jugador){
         this.jugadorForm = this.fb.group({
-          idJugador: [jugador.idJugador],
+          id: [jugador.id],
           nombre: [jugador.nombre, Validators.required],
           apellido: [jugador.apellido, Validators.required],
           numero: [jugador.numero],
           posicion: [jugador.posicion],
-          equipo:[jugador.equipo],
+          equipoId:[jugador.equipoId],
           dni: [jugador.dni, Validators.required],
-          fechaNac: [jugador.fechaNac, Validators.required],
+          fecha_nac: [jugador.fecha_nac, Validators.required],
           eliminado: [jugador.eliminado]
         })
+        this.jugadorForm.setValue(
+          {
+          id: jugador.id,
+          nombre: jugador.nombre,
+          apellido: jugador.apellido,
+          numero: jugador.numero,
+          posicion: jugador.posicion,
+          equipoId: jugador.equipoId,
+          dni: jugador.dni,
+          fecha_nac: jugador.fecha_nac,
+          eliminado: jugador.eliminado
+         })
       }
 
 
+    volver(){
+      this.router.navigate(['/jugadores/' + this.idEquipo],{queryParams: {backTo: 'perfil'}})
+    }
+    
   actualizarJugador(this: any){
     const JUGADOR: Jugador ={
-      idJugador: this.jugador.idJugador,
+      id: this.jugador.id,
       nombre : this.jugadorForm.get('nombre')?.value,
       apellido : this.jugadorForm.get('apellido')?.value,
       numero : this.jugadorForm.get('numero')?.value,
       posicion : this.jugadorForm.get('posicion')?.value,
-      equipo: this.jugador.equipo,
+      equipoId: this.jugador.equipoId,
       dni: this.jugadorForm.get('dni')?.value,
-      fechaNac: this.jugadorForm.get('fechaNac')?.value,
-      eliminado: this.jugadorForm.get('eliminado').value
+      fecha_nac: this.jugadorForm.get('fecha_nac')?.value,
+      eliminado: this.jugador.eliminado
     }
    
     this.jugadorService.actualizarJugador(this.idJugador,JUGADOR).subscribe(() => {
